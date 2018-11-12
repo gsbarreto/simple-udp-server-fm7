@@ -23,6 +23,10 @@
  - Run *npm install*
  - Run *node server*
 
+## Example
+There is an example of how to use on the folder */view*, just open the *index.html* file on your browser.
+
+
 ## PS:
 If you are playing FM7 on Windows, make sure to do the following steps before connect: 
 [FM7 PC - UWP Protection](https://forums.forzamotorsport.net/turn10_postsm994745_Forza-Motorsport-7--Data-Out--feature-details.aspx#post_994745)
