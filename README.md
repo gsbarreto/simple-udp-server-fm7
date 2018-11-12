@@ -10,7 +10,7 @@
 > data and converts to a TCP server.
 
 ## How can i run the code?
-On your Xbox/PC
+### On your Xbox/PC
  - Go to the options menu
  - Select HUD
  - Set Data Out to "ON"
@@ -18,7 +18,7 @@ On your Xbox/PC
  - Set Data Port to the port on the code (*You can configure this*) Default: 20127
 - Set Data Out Packet Format to "*Car Dash*"
 - Press OK
-On your computer
+### On your computer
  - Make sure that you are on the folder with your terminal
  - Run *npm install*
  - Run *node server*
