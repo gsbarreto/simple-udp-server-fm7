@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Teste</title>
+    <link rel="stylesheet" href="css/materialize.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+    <style>
+        @font-face {
+            font-family: 'digital';
+            src: url('ttf/digital.ttf');
+        }
+
+        tbody {
+            display: block;
+            height: 150px;
+            overflow: auto;
+        }
+
+        thead,
+        tbody tr {
+            display: table;
+            width: 100%;
+            padding-top: 1em;
+            table-layout: fixed;
+        }
+
+        thead {
+            width: calc(100% - 1em)
+        }
+
+        table {
+            width: 100%;
+        }
+
+        #led1,#led2,#led3,#led4,#led5 {
+            background-color: #075200;
+        }
+        
+        #led6,#led7,#led8,#led9 {
+            background-color: #958600;
+        }
+
+        #led10,#led11,#led12 {
+            background-color: #770000;
+        }
+
+        .ledYellowOn{
+            background-color: #EED600 !important;
+            box-shadow: 0px 0px 10px #EFE15D;
+        }
+
+        .ledGreenOn{
+            background-color: #0FBA00 !important;
+            box-shadow: 0px 0px 10px #55D64A;
+        }
+
+        .ledRedOn{
+            background-color: #D50303 !important;
+            box-shadow: 0px 0px 10px #F93636;
+        }
+        
+        .led{
+            width: 25px;
+            height: 25px;
+            border-radius: 100%;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body style="height:100vh;">
+    <div class="row" style="height: 100%;">
+        <div class="col s3 grey darken-4" style="height: 100%;">
+            <div class="section white-text">
+                <h5>Lap <span id="lapNumber" style="font-size:36px;">0</span></h5>
+                <h5>Position <span id="racePosition" style="font-size:36px;">0</span></h5>
+            </div>
+            <div class="divider"></div>
+            <div class="section white-text">
+                <h6>Current Lap</h6>
+                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="currentLapMinutes">00</span>.<span id="currentLapSeconds">00</span>.<span id="currentLapMiliseconds">000</span></h5>
+                <h6>Last Lap</h6>
+                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="lastLapMinutes">00</span>.<span id="lastLapSeconds">00</span>.<span id="lastLapMiliseconds">000</span></h5>
+                <h6>Best Lap</h6>
+                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="bestLapMinutes">00</span>.<span id="bestLapSeconds">00</span>.<span id="bestLapMiliseconds">000</span></h5>
+            </div>
+            <div class="divider"></div>
+            <div class="section">
+                <table class="centered white-text">
+                    <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Lap Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="times">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col s6 black white-text" style="height: 100vh;">
+            <div class="row center" style="margin-bottom:0px;">
+                <div class="section margin-bottom:0px; display:inline;">
+                    <div class="led" id="led1"></div> 
+                    <div class="led" id="led2"></div>
+                    <div class="led" id="led3"></div>
+                    <div class="led" id="led4"></div>
+                    <div class="led" id="led5"></div>
+                    <div class="led" id="led6"></div>
+                    <div class="led" id="led7"></div>
+                    <div class="led" id="led8"></div>
+                    <div class="led" id="led9"></div>
+                    <div class="led" id="led10"></div>
+                    <div class="led" id="led11"></div>
+                    <div class="led" id="led12"></div>       
+                </div>
+            </div>
+            <div class="row center" style="margin-bottom:0px;">
+                <span style="font-size:200px;font-family: digital;" id="gear" >N</span>
+            </div>
+            <div class="row center" style="margin-bottom:0px;">
+                <div class="col s6">
+                    <h5 style="margin-top:0px;">SPEED (Km/h)</h5>
+                    <h2 style="margin-top:0px; font-family: digital;" id="speed">0</h2>
+                </div>
+                <div class="col s6">
+                    <h5 style="margin-top:0px;">RPM</h5>
+                    <h2 style="margin-top:0px; font-family: digital;" id="rpm">0</h2>
+                </div>
+            </div>
+            <div class="row center" style="margin-bottom:0px;">
+                <div class="col s6">
+                    <img src="img/fuel.svg" style="width: 64px; height: auto;" style="margin-bottom:0px;">
+                    <h2 style="font-family: digital;margin-top: 5px;"><span id="fuel">100</span>%</h2>
+                </div>
+                <div class="col s6">
+                    bars
+                </div>
+            </div>
+        </div>
+        <div class="col s3 grey darken-4" style="height: 100%;">a</div>
+    </div>
+    <script>
+        var obj;
+        var lastLapNumber = 0;
+
+        function timeFormat(name, obj) {
+            if (parseInt(obj / 60) < 10) {
+                $('#' + name + 'LapMinutes').text('0' + parseInt(obj / 60));
+            } else {
+                $('#' + name + 'LapMinutes').text(parseInt(obj / 60));
+            }
+            segundos = obj % 60;
+            if (segundos < 10) {
+                $('#' + name + 'LapSeconds').text('0' + parseInt(segundos));
+            } else {
+                $('#' + name + 'LapSeconds').text(parseInt(segundos));
+            }
+            restoSegundos = segundos - parseInt(segundos);
+            if (parseInt(restoSegundos * 1000) === 0) {
+                $('#' + name + 'LapMiliseconds').text('000');
+            } else {
+                $('#' + name + 'LapMiliseconds').text(parseInt(restoSegundos * 1000) + 1);
+            }
+        }
+
+        function timeFormatString(obj) {
+            let string = '';
+            if (parseInt(obj / 60) < 10) {
+                string += ('0' + parseInt(obj / 60));
+            } else {
+                string += parseInt(obj / 60);
+            }
+            string += ':';
+
+            segundos = obj % 60;
+            if (segundos < 10) {
+                string += ('0' + parseInt(segundos));
+            } else {
+                string += parseInt(segundos);
+            }
+            string += ':';
+            restoSegundos = segundos - parseInt(segundos);
+            if (parseInt(restoSegundos * 1000) === 0) {
+                string += '000';
+            } else {
+                string += (parseInt(restoSegundos * 1000) + 1);
+            }
+
+            return string;
+        }
+
+        function changeLeds(current, min, max){
+            let level = (max-min)/11;
+            let cleanCurrent = current - min;
+
+            if(cleanCurrent > level * 1){
+                $("#led1").addClass('ledGreenOn');
+            }else{
+                $("#led1").removeClass('ledGreenOn');
+            }
+            if(cleanCurrent > level * 2){
+                $("#led2").addClass('ledGreenOn');
+            }else{
+                $("#led2").removeClass('ledGreenOn');
+            }
+            if(cleanCurrent > level * 3){
+                $("#led3").addClass('ledGreenOn');
+            }else{
+                $("#led3").removeClass('ledGreenOn');
+            }
+            if(cleanCurrent > level * 4){
+                $("#led4").addClass('ledGreenOn');
+            }else{
+                $("#led4").removeClass('ledGreenOn');
+            }
+            if(cleanCurrent > level * 5){
+                $("#led5").addClass('ledGreenOn');
+            }else{
+                $("#led5").removeClass('ledGreenOn');
+            }
+            if(cleanCurrent > level * 6){
+                $("#led6").addClass('ledYellowOn');
+            }else{
+                $("#led6").removeClass('ledYellowOn');
+            }
+            if(cleanCurrent > level * 7){
+                $("#led7").addClass('ledYellowOn');
+            }else{
+                $("#led7").removeClass('ledYellowOn');
+            }
+            if(cleanCurrent > level * 8){
+                $("#led8").addClass('ledYellowOn');
+            }else{
+                $("#led8").removeClass('ledYellowOn');
+            }
+            if(cleanCurrent > level * 9){
+                $("#led9").addClass('ledYellowOn');
+            }else{
+                $("#led9").removeClass('ledYellowOn');
+            }
+            if(cleanCurrent > level * 10){
+                $("#led10").addClass('ledRedOn');
+            }else{
+                $("#led10").removeClass('ledRedOn');
+            }
+            if(cleanCurrent > level * 11){
+                $("#led11").addClass('ledRedOn');
+            }else{
+                $("#led11").removeClass('ledRedOn');
+            }
+            if(cleanCurrent > level * 12){
+                $("#led12").addClass('ledRedOn');
+            }else{
+                $("#led12").removeClass('ledRedOn');
+            }
+            
+        }
+
+        setInterval("request();", 150);
+
+        function request() {
+            let ultimaVolta;
+            axios.get('http://localhost:8080/data').then((res) => {
+                obj = res.data;
+                if (obj.isRaceOn === 1) {
+                    if (lastLapNumber < obj.lastLap) {
+                        $('#times').prepend('<tr><td>' + (lastLapNumber + 1) + '</td><td>' + timeFormatString(obj.lastLap) + '</td></tr>');
+                        ++lastLapNumber;
+                    }
+                }
+
+                $('#lapNumber').text(++obj.lapNumber);
+                $('#racePosition').text(obj.racePosition);
+                $('#gear').text(obj.gear);
+                $('#speed').text(parseInt(obj.speed * 3.6));
+                $('#rpm').text(parseInt(obj.currentEngineRpm));
+                $('#fuel').text(parseInt(obj.fuel * 100));
+
+
+                timeFormat('current', obj.currentLap);
+                timeFormat('last', obj.lastLap);
+                timeFormat('best', obj.bestLap);
+                
+                changeLeds(obj.currentEngineRpm,obj.engineIdleRpm,obj.engineMaxRpm);
+                //changeLeds(8,0,12);
+            });
+
+        };
+    </script>
+    <script src="js/materialize.js"></script>
+</body>
+
+</html>
