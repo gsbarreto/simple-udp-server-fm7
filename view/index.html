@@ -38,34 +38,43 @@
             width: 100%;
         }
 
-        #led1,#led2,#led3,#led4,#led5 {
+        #led1,
+        #led2,
+        #led3,
+        #led4,
+        #led5 {
             background-color: #075200;
         }
-        
-        #led6,#led7,#led8,#led9 {
+
+        #led6,
+        #led7,
+        #led8,
+        #led9 {
             background-color: #958600;
         }
 
-        #led10,#led11,#led12 {
+        #led10,
+        #led11,
+        #led12 {
             background-color: #770000;
         }
 
-        .ledYellowOn{
+        .ledYellowOn {
             background-color: #EED600 !important;
             box-shadow: 0px 0px 10px #EFE15D;
         }
 
-        .ledGreenOn{
+        .ledGreenOn {
             background-color: #0FBA00 !important;
             box-shadow: 0px 0px 10px #55D64A;
         }
 
-        .ledRedOn{
+        .ledRedOn {
             background-color: #D50303 !important;
             box-shadow: 0px 0px 10px #F93636;
         }
-        
-        .led{
+
+        .led {
             width: 25px;
             height: 25px;
             border-radius: 100%;
@@ -84,11 +93,14 @@
             <div class="divider"></div>
             <div class="section white-text">
                 <h6>Current Lap</h6>
-                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="currentLapMinutes">00</span>.<span id="currentLapSeconds">00</span>.<span id="currentLapMiliseconds">000</span></h5>
+                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="currentLapMinutes">00</span>.<span
+                        id="currentLapSeconds">00</span>.<span id="currentLapMiliseconds">000</span></h5>
                 <h6>Last Lap</h6>
-                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="lastLapMinutes">00</span>.<span id="lastLapSeconds">00</span>.<span id="lastLapMiliseconds">000</span></h5>
+                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="lastLapMinutes">00</span>.<span
+                        id="lastLapSeconds">00</span>.<span id="lastLapMiliseconds">000</span></h5>
                 <h6>Best Lap</h6>
-                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="bestLapMinutes">00</span>.<span id="bestLapSeconds">00</span>.<span id="bestLapMiliseconds">000</span></h5>
+                <h5 style="font-family: digital;font-size: 32px;margin-top: 4px;"><span id="bestLapMinutes">00</span>.<span
+                        id="bestLapSeconds">00</span>.<span id="bestLapMiliseconds">000</span></h5>
             </div>
             <div class="divider"></div>
             <div class="section">
@@ -108,7 +120,7 @@
         <div class="col s6 black white-text" style="height: 100vh;">
             <div class="row center" style="margin-bottom:0px;">
                 <div class="section margin-bottom:0px; display:inline;">
-                    <div class="led" id="led1"></div> 
+                    <div class="led" id="led1"></div>
                     <div class="led" id="led2"></div>
                     <div class="led" id="led3"></div>
                     <div class="led" id="led4"></div>
@@ -119,11 +131,11 @@
                     <div class="led" id="led9"></div>
                     <div class="led" id="led10"></div>
                     <div class="led" id="led11"></div>
-                    <div class="led" id="led12"></div>       
+                    <div class="led" id="led12"></div>
                 </div>
             </div>
             <div class="row center" style="margin-bottom:0px;">
-                <span style="font-size:200px;font-family: digital;" id="gear" >N</span>
+                <span style="font-size:200px;font-family: digital;" id="gear">N</span>
             </div>
             <div class="row center" style="margin-bottom:0px;">
                 <div class="col s6">
@@ -141,11 +153,64 @@
                     <h2 style="font-family: digital;margin-top: 5px;"><span id="fuel">100</span>%</h2>
                 </div>
                 <div class="col s6">
-                    bars
+                    <h5 style="margin-top:0px;">SPEED/BRAKE BARS</h5>
+                    <div class="row">
+                        <div class="col s6">
+                            <div style="background-color:#FFF; width: 20px; height: 100px; position: relative; margin: 0 auto;">
+                                <div id="accel-pedal" style="background-color:#0FBA00; color: #0FBA00; position: absolute; bottom: 0; width: 100%; height: 1%">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s6">
+                            <div style="background-color:#FFF; width: 20px; height: 100px; position: relative;  margin: 0 auto;">
+                                <div id="brake-pedal" style="background-color:#D50303; color: #D50303; position: absolute; bottom: 0; width: 100%; height: 1%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col s3 grey darken-4" style="height: 100%;">a</div>
+        <div class="col s3 grey darken-4" style="height: 100%;">
+            <div class="row">
+                <div class="col s6" style="text-align: center;">
+                    <p id="tempFrontLeft" style="color: #FFF; font-size: 18px; margin: 0;">91°</p>
+                    <div style="width:55px; height:80px; background-color: #FFF; border-radius: 10px; margin: 0 auto;">
+                        Front Left
+                    </div>
+                </div>
+                <div class="col s6" style="text-align: center;">
+                    <p id="tempFrontRight" style="color: #FFF; font-size: 18px; margin: 0;">91°</p>
+                    <div style="width:55px; height:80px; background-color: #FFF; border-radius: 10px; margin: 0 auto;">
+                        Front Right
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s6" style="text-align: center;">
+                    <p id="tempRearLeft" style="color: #FFF; font-size: 18px; margin: 0;">91°</p>
+                    <div style="width:55px; height:80px; background-color: #FFF; border-radius: 10px; margin: 0 auto;">
+                        Rear Left
+                    </div>
+                </div>
+                <div class="col s6" style="text-align: center;">
+                    <p id="tempRearRight" style="color: #FFF; font-size: 18px; margin: 0;">91°</p>
+                    <div style="width:55px; height:80px; background-color: #FFF; border-radius: 10px; margin: 0 auto;">
+                        Rear Right
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12" style="color:#FFF;">
+                    <h4 style="text-align: center;">Car Information</h4>
+                    <h6>ID: <span id="car-id"></span></h6>
+                    <h6>Class: <span id="car-class"></span></h6>
+                    <h6>Performace Index: <span id="car-perf"></span></h6>
+                    <h6>Drivetrain Type: <span id="car-drivetrain"></span></h6>
+                    <h6>N. Cylinders: <span id="car-cylinders"></span></h6>
+                </div>
+            </div>
+        </div>
     </div>
     <script>
         var obj;
@@ -197,85 +262,145 @@
             return string;
         }
 
-        function changeLeds(current, min, max){
-            let level = (max-min)/11;
+        function changeLeds(current, min, max) {
+            let level = (max - min) / 11;
             let cleanCurrent = current - min;
 
-            if(cleanCurrent > level * 1){
+            if (cleanCurrent > level * 1) {
                 $("#led1").addClass('ledGreenOn');
-            }else{
+            } else {
                 $("#led1").removeClass('ledGreenOn');
             }
-            if(cleanCurrent > level * 2){
+            if (cleanCurrent > level * 2) {
                 $("#led2").addClass('ledGreenOn');
-            }else{
+            } else {
                 $("#led2").removeClass('ledGreenOn');
             }
-            if(cleanCurrent > level * 3){
+            if (cleanCurrent > level * 3) {
                 $("#led3").addClass('ledGreenOn');
-            }else{
+            } else {
                 $("#led3").removeClass('ledGreenOn');
             }
-            if(cleanCurrent > level * 4){
+            if (cleanCurrent > level * 4) {
                 $("#led4").addClass('ledGreenOn');
-            }else{
+            } else {
                 $("#led4").removeClass('ledGreenOn');
             }
-            if(cleanCurrent > level * 5){
+            if (cleanCurrent > level * 5) {
                 $("#led5").addClass('ledGreenOn');
-            }else{
+            } else {
                 $("#led5").removeClass('ledGreenOn');
             }
-            if(cleanCurrent > level * 6){
+            if (cleanCurrent > level * 6) {
                 $("#led6").addClass('ledYellowOn');
-            }else{
+            } else {
                 $("#led6").removeClass('ledYellowOn');
             }
-            if(cleanCurrent > level * 7){
+            if (cleanCurrent > level * 7) {
                 $("#led7").addClass('ledYellowOn');
-            }else{
+            } else {
                 $("#led7").removeClass('ledYellowOn');
             }
-            if(cleanCurrent > level * 8){
+            if (cleanCurrent > level * 8) {
                 $("#led8").addClass('ledYellowOn');
-            }else{
+            } else {
                 $("#led8").removeClass('ledYellowOn');
             }
-            if(cleanCurrent > level * 9){
+            if (cleanCurrent > level * 9) {
                 $("#led9").addClass('ledYellowOn');
-            }else{
+            } else {
                 $("#led9").removeClass('ledYellowOn');
             }
-            if(cleanCurrent > level * 10){
+            if (cleanCurrent > level * 10) {
                 $("#led10").addClass('ledRedOn');
-            }else{
+            } else {
                 $("#led10").removeClass('ledRedOn');
             }
-            if(cleanCurrent > level * 11){
+            if (cleanCurrent > level * 11) {
                 $("#led11").addClass('ledRedOn');
-            }else{
+            } else {
                 $("#led11").removeClass('ledRedOn');
             }
-            if(cleanCurrent > level * 12){
+            if (cleanCurrent > level * 12) {
                 $("#led12").addClass('ledRedOn');
-            }else{
+            } else {
                 $("#led12").removeClass('ledRedOn');
             }
-            
+
         }
 
         setInterval("request();", 150);
 
         function request() {
-            let ultimaVolta;
             axios.get('http://localhost:8080/data').then((res) => {
                 obj = res.data;
                 if (obj.isRaceOn === 1) {
-                    if (lastLapNumber < obj.lastLap) {
-                        $('#times').prepend('<tr><td>' + (lastLapNumber + 1) + '</td><td>' + timeFormatString(obj.lastLap) + '</td></tr>');
-                        ++lastLapNumber;
+                    if (lastLapNumber < obj.lapNumber) {
+                        $('#times').prepend('<tr><td>' + (obj.lapNumber) + '</td><td>' + timeFormatString(obj.lastLap) + '</td></tr>');
+                        lastLapNumber = obj.lapNumber;
                     }
+
+                    $('#tempFrontLeft').text(((obj.tireTempFrontLeft - 32) * (5 / 9)).toFixed(1) + "°");
+                    $('#tempFrontRight').text(((obj.tireTempFrontRight - 32) * (5 / 9)).toFixed(1) + "°");
+                    $('#tempRearLeft').text(((obj.tireTempRearLeft - 32) * (5 / 9)).toFixed(1) + "°");
+                    $('#tempRearRight').text(((obj.tireTempRearRight - 32) * (5 / 9)).toFixed(1) + "°");
+
+                    var perf = '';
+                    switch (obj.carClass) {
+                        case 0:
+                            perf = 'D';
+                            break;
+                        case 1:
+                            perf = 'C';
+                            break;
+                        case 2:
+                            perf = 'B';
+                            break;
+                        case 3:
+                            perf = 'A';
+                            break;
+                        case 4:
+                            perf = 'S';
+                            break;
+                        case 5:
+                            perf = 'R';
+                            break;
+                        case 6:
+                            perf = 'P';
+                            break;
+                        case 7:
+                            perf = 'X';
+                            break;
+                        default:
+                            perf = '';
+                    }
+                    var drivetrain = '';
+                    switch (obj.drivetrainType) {
+                        case 0:
+                            drivetrain = 'FWD';
+                            break;
+                        case 1:
+                            drivetrain = 'RWD';
+                            break;
+                        case 2:
+                            drivetrain = 'AWD';
+                            break;
+                        default:
+                            drivetrain = ' ';
+                    }
+
+                    $('#car-class').text(perf);
+                    $('#car-drivetrain').text(drivetrain);
+                } else {
+                    $('#tempFrontLeft').text("0°");
+                    $('#tempFrontRight').text("0°");
+                    $('#tempRearLeft').text("0°");
+                    $('#tempRearRight').text("0°");
+                    $('#car-class').text("0");
+                    $('#car-drivetrain').text("0");
                 }
+
+
 
                 $('#lapNumber').text(++obj.lapNumber);
                 $('#racePosition').text(obj.racePosition);
@@ -283,13 +408,18 @@
                 $('#speed').text(parseInt(obj.speed * 3.6));
                 $('#rpm').text(parseInt(obj.currentEngineRpm));
                 $('#fuel').text(parseInt(obj.fuel * 100));
+                $('#accel-pedal').css("height", (obj.accel / 2.55) + '%');
+                $('#brake-pedal').css("height", (obj.brake / 2.55) + '%');
+                $('#car-id').text(obj.carOrdinal);
+                $('#car-perf').text(obj.carPerformanceIndex);
+                $('#car-cylinders').text(obj.numCylinders);
 
 
                 timeFormat('current', obj.currentLap);
                 timeFormat('last', obj.lastLap);
                 timeFormat('best', obj.bestLap);
-                
-                changeLeds(obj.currentEngineRpm,obj.engineIdleRpm,obj.engineMaxRpm);
+
+                changeLeds(obj.currentEngineRpm, obj.engineIdleRpm, obj.engineMaxRpm);
                 //changeLeds(8,0,12);
             });
 

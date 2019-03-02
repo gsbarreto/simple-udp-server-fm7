@@ -216,7 +216,7 @@ server.on('message', function (message, remote) {
     obj.normalizedAIBrakeDifference = message.readUInt8(jump);
     jump += 1;
 
-    console.log(remote.address + ':' + remote.port + ' - (' + obj.isRaceOn + '), Gear:' + obj.gear + " - Power:" + obj.brake);
+    console.log(remote.address + ':' + remote.port + ' - (' + obj.isRaceOn + '), Gear:' + obj.gear + " - Tire:" + obj.tireSlipRatioFrontLeft);
 
 });
 
