@@ -4,7 +4,7 @@
  - NodeJS
  - NPM
 
-## Who it works?
+## How does it works?
 
 > Node runs an UDP server on the *server.js* file that catch the
 > data and converts to a TCP server.
